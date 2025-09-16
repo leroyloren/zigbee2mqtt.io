@@ -18,8 +18,8 @@ pageClass: device-page
 | Model | TS130F_dual  |
 | Vendor  | [Lonsonho](/supported-devices/#v=Lonsonho)  |
 | Description | Dual curtain/blind module |
-| Exposes | moving, calibration_time, cover (state, position), calibration, motor_reversal, linkquality |
-| Picture | ![Lonsonho TS130F_dual](https://www.zigbee2mqtt.io/images/devices/TS130F_dual.jpg) |
+| Exposes | moving, calibration_time, cover (state, position), calibration, motor_reversal |
+| Picture | ![Lonsonho TS130F_dual](https://www.zigbee2mqtt.io/images/devices/TS130F_dual.png) |
 
 
 <!-- Notes BEGIN: You can edit here. Add "## Notes" headline if not already present. -->
@@ -46,6 +46,8 @@ Press on pair button for 10 seconds to enter pairing mode
 
 * `invert_cover`: Inverts the cover position, false: open=100,close=0, true: open=0,close=100 (default false). The value must be `true` or `false`
 
+* `cover_position_tilt_disable_report`: Do not publish set cover target position as a normal 'position' value (default false). The value must be `true` or `false`
+
 
 ## Exposes
 
@@ -59,17 +61,21 @@ Value can be found in the published state on the `moving_right` property.
 It's not possible to read (`/get`) or write (`/set`) this value.
 The possible values are: `UP`, `STOP`, `DOWN`.
 
-### Calibration_time (numeric, left endpoint)
+### Calibration time (numeric, left endpoint)
 Calibration time.
 Value can be found in the published state on the `calibration_time_left` property.
-It's not possible to read (`/get`) or write (`/set`) this value.
-The unit of this value is `S`.
+To read (`/get`) the value publish a message to topic `zigbee2mqtt/FRIENDLY_NAME/get` with payload `{"calibration_time_left": ""}`.
+To write (`/set`) a value publish a message to topic `zigbee2mqtt/FRIENDLY_NAME/set` with payload `{"calibration_time_left": NEW_VALUE}`.
+The minimal value is `0` and the maximum value is `500`.
+The unit of this value is `s`.
 
-### Calibration_time (numeric, right endpoint)
+### Calibration time (numeric, right endpoint)
 Calibration time.
 Value can be found in the published state on the `calibration_time_right` property.
-It's not possible to read (`/get`) or write (`/set`) this value.
-The unit of this value is `S`.
+To read (`/get`) the value publish a message to topic `zigbee2mqtt/FRIENDLY_NAME/get` with payload `{"calibration_time_right": ""}`.
+To write (`/set`) a value publish a message to topic `zigbee2mqtt/FRIENDLY_NAME/set` with payload `{"calibration_time_right": NEW_VALUE}`.
+The minimal value is `0` and the maximum value is `500`.
+The unit of this value is `s`.
 
 ### Cover (left endpoint)
 The current state of this cover is in the published state under the `state_left` property (value is `OPEN` or `CLOSE`).
@@ -83,11 +89,11 @@ To read (`/get`) the value publish a message to topic `zigbee2mqtt/FRIENDLY_NAME
 To write (`/set`) a value publish a message to topic `zigbee2mqtt/FRIENDLY_NAME/set` with payload `{"calibration_left": NEW_VALUE}`.
 If value equals `ON` calibration is ON, if `OFF` OFF.
 
-### Motor_reversal (binary, left endpoint)
+### Motor reversal (binary, left endpoint)
 Value can be found in the published state on the `motor_reversal_left` property.
 To read (`/get`) the value publish a message to topic `zigbee2mqtt/FRIENDLY_NAME/get` with payload `{"motor_reversal_left": ""}`.
 To write (`/set`) a value publish a message to topic `zigbee2mqtt/FRIENDLY_NAME/set` with payload `{"motor_reversal_left": NEW_VALUE}`.
-If value equals `ON` motor_reversal is ON, if `OFF` OFF.
+If value equals `ON` motor reversal is ON, if `OFF` OFF.
 
 ### Cover (right endpoint)
 The current state of this cover is in the published state under the `state_right` property (value is `OPEN` or `CLOSE`).
@@ -101,16 +107,9 @@ To read (`/get`) the value publish a message to topic `zigbee2mqtt/FRIENDLY_NAME
 To write (`/set`) a value publish a message to topic `zigbee2mqtt/FRIENDLY_NAME/set` with payload `{"calibration_right": NEW_VALUE}`.
 If value equals `ON` calibration is ON, if `OFF` OFF.
 
-### Motor_reversal (binary, right endpoint)
+### Motor reversal (binary, right endpoint)
 Value can be found in the published state on the `motor_reversal_right` property.
 To read (`/get`) the value publish a message to topic `zigbee2mqtt/FRIENDLY_NAME/get` with payload `{"motor_reversal_right": ""}`.
 To write (`/set`) a value publish a message to topic `zigbee2mqtt/FRIENDLY_NAME/set` with payload `{"motor_reversal_right": NEW_VALUE}`.
-If value equals `ON` motor_reversal is ON, if `OFF` OFF.
-
-### Linkquality (numeric)
-Link quality (signal strength).
-Value can be found in the published state on the `linkquality` property.
-It's not possible to read (`/get`) or write (`/set`) this value.
-The minimal value is `0` and the maximum value is `255`.
-The unit of this value is `lqi`.
+If value equals `ON` motor reversal is ON, if `OFF` OFF.
 
